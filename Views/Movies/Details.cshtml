@@ -1,0 +1,35 @@
+﻿@model MOTC.ViewModels.MovieDetails
+
+@{
+    ViewData["Title"] = "Details";
+    var url1= "/static/media/" + Model.Image;
+}
+
+
+<link rel="stylesheet" href="~/css/details.css" />
+<div class="row col-sm-12 border-darken-1 detailsContainer">
+    <div class="col-sm-8">
+        <div>
+            <h1 class="detailsTitle">@Html.DisplayFor(model => model.MovieName)</h1>
+            <p class="descripton">@Html.DisplayFor(model => model.Description) </p> <hr />
+            <span class="sideHeading">Language :     </span> @Html.DisplayFor(model => model.Language)<br />
+            <span class="sideHeading">RELEASE DATE : </span>@Html.DisplayFor(model => model.RealeaseDate)<br />
+            <span class="sideHeading"> Producer :    </span>@Html.DisplayFor(model => model.ProducersName)<br />
+            <span class="sideHeading">Producer :     </span> @Html.DisplayFor(model => model.DirectorName)<br />
+            <span class="sideHeading">Movie Cast :     </span> @Html.DisplayFor(model => model.MovieCasts)<br />
+            <span class="sideHeading">Movie Categories :     </span> @Html.DisplayFor(model => model.MovieGenre)<br />
+            <hr />
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div>
+            <img src="/image/@Model.Image" alt="dfhfgh">
+        </div>
+        <a asp-action="Edit" asp-route-id="@Model.movieID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</div>
+<div>
+    
+</div>

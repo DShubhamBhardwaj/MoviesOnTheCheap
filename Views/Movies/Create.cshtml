@@ -1,0 +1,170 @@
+﻿@model MOTC.Models.Movies
+
+@{
+    ViewData["Title"] = "Create Movie ";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<style>
+    .shadow-textarea textarea.form-control::placeholder {
+        font-weight: 300;
+    }
+
+    .shadow-textarea textarea.form-control {
+        padding-left: 0.8rem;
+    }
+
+</style>
+<h2>ENTER THE MOVIE DETAILS</h2>
+<hr />
+<div class="col-12">
+    <form asp-action="Create" method="post" enctype="multipart/form-data" id="form" class="border-dark border-primary card p-5">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-6">
+                <label asp-for="MovieName" class="col-4 col-form-label-lg ">MOVIE NAME</label>
+                <input asp-for="MovieName" class="col-7 input-group-lg" type="text" />
+                <span asp-validation-for="MovieName" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label asp-for="Language" class="col-4 col-form-label-lg ">LANGUAGE</label>
+                <input asp-for="Language" class="col-7 input-group-lg" type="text" />
+                <span asp-validation-for="Language" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label asp-for="RealeaseDate" class="col-4 col-form-label-lg ">RELEASE DATE</label>
+                <input asp-for="RealeaseDate" class="col-7 input-group-lg" type="date" />
+                <span asp-validation-for="RealeaseDate" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label class="col-4 col-form-label-lg ">IMAGE</label>
+                <input name="files" id="uploadBox" multiple class="col-7 input-group-lg" type="file" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <label asp-for="ProducerID" class="col-4 col-form-label-lg ">PRODUCERS</label>
+                <select asp-for="ProducerID" class="col-7 input-group-lg" asp-items="ViewBag.ProducersDropdown" onchange="NewProducer(this.value)">
+                    <option selected>--Select a Producer--</option>
+                    <option value="others">Not in the List</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <label asp-for="DirectorID" class="col-4 col-form-label-lg ">DIRECTORS</label>
+                <select asp-for="DirectorID" class="col-7 input-group-lg" asp-items="ViewBag.DirectorsDropdown" onchange="NewDirector(this.value)">
+                    <option selected>--Select a Director--</option>
+                    <option value="others">Not in the List</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="Producer" class="col-6" style='display:none'>
+                <label class="col-5 col-form-label-lg ">NEW PRODUCER : </label>
+                <input class="col-6 input-group-lg" type="text" name="Producer" />
+            </div>
+            <div id="Director" class="col-6" style='display:none'>
+                <label class="col-5 col-form-label-lg ">NEW DIRECTOR : </label>
+                <input class="col-6 input-group-lg" type="text" name="director" />
+            </div>
+        </div>
+
+        <div class="row" id="actors_div">
+            <div class="row col-12" id="actors">
+                <div class="col-6" id="actors">
+                    <label name="actors" class="col-4 col-form-label-lg ">ACTORS</label>
+                        <select name="Actors" class="col-7 input-group-lg" asp-items="ViewBag.ActorsDropdown" onchange="NewActor(this.value)">
+                            <option selected>--Select an Actor--</option>
+                            <option value="others">Not in the List</option>
+                        </select>
+                </div>
+                <div class="col-6">
+                    <label class="col-4 col-form-label-lg ">ROLE  </label>
+                    <input class="col-7 input-group-lg" type="text" name="role" />
+                </div>
+                <div class="newactor col-6" style='display:none'>
+                    <label class="col-4 col-form-label-lg ">NAME </label>
+                    <input class="col-7 input-group-lg" type="text" name="Actor" />
+                </div>
+                <div class="newactor col-6" style='display:none'>
+                    <label class="col-4 col-form-label-lg">GENDER  </label>
+                    <input class="col-7 input-group-lg" type="text" name="Gender" />
+                </div>
+            </div>
+        </div>
+        <a href="#" id="filldetails" onclick="addFields()">Add more Actors</a><br />
+        <div class="row">
+            <div class=" shadow-textarea col-6">
+                <label asp-for="Description" class="col-6 col-form-label-lg ">MOVIE DESCRIPTION</label>
+                <textarea class="z-depth-1 col-10 ml-lg-5" asp-for="Description" rows="3" placeholder="Write description here..."></textarea>
+            </div>
+            <div class="col-6">
+                <label asp-for="GenreList" class="col-12 col-form-label-lg ">GENRES <code>(hold ctrl for multiple selection)</code></label>
+                <select asp-for="GenreList" class="col-10 ml-lg-5 input-group-lg" asp-items="ViewBag.GenreDropdown">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <input type="submit" value="Create" class="btn btn-primary col-3 m-3 font-weight-bolder" />
+            <a asp-action="Index" class="btn btn-secondary col-3 m-3 font-weight-bolder">Back to List</a>
+        </div>
+        
+    </form>
+</div>
+<div>
+    
+</div>
+<script>
+    function NewDirector(val) {
+        if (val == "others")
+            document.getElementById('Director').style.display = 'block';
+        else
+            document.getElementById('Director').style.display = 'none';
+    }
+
+    function NewProducer(val) {
+        if (val == "others")
+            document.getElementById('Producer').style.display ='block';
+        else
+            document.getElementById('Producer').style.display = 'none';
+    }
+
+    var count = 0;
+
+    function addFields() {
+        count+=2;
+        var element = document.getElementById('actors');
+        var OuterHtml = element.outerHTML;
+        OuterHtml.id = "actor" + count;
+        var TopLevel = document.getElementById('actors_div');
+        OuterHtml.id = "2"
+        $(TopLevel).append(OuterHtml);
+    }
+
+    function NewActor(val) {
+        if (val == "others") {
+            var elems = document.getElementsByClassName('newactor');
+            for (var i = count; i < count+2; i += 1) {
+                elems[i].style.display = 'block';
+            }
+            document.getElementById('actors').style.border = '1px solid black';
+        }
+        else {
+            var elems = document.getElementsByClassName('newactor');
+            for (var i = count; i < count+2; i += 1) {
+                elems[i].style.display = 'none';
+            }
+            document.getElementById('actors_div').style.border = '1px solid black';
+        }
+    }
+   
+
+
+
+</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

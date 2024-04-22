@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MOTC.Models.Movies>
+
+@{
+    ViewData["Title"] = "LIST OF MOVIES";
+}
+<div class="row col-12">
+    <div class="col-6">
+        <h4 style="text-align:right;">LIST OF MOVIES</h4>
+    </div>
+    <div class="col-5">
+
+        <a asp-action="Create" class="btn-secondary  p-1" style="float:right">Create New</a>
+    </div>
+</div>
+<hr/>
+
+    
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Language)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RealeaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Producer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Director)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Language)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RealeaseDate)
+           </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producer.ProducersName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Director.DirectorName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MovieID" class="btn btn-primary p-1 m-1">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MovieID" class="btn btn-success p-1 m-1">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MovieID" class="btn btn-danger p-1 m-1">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

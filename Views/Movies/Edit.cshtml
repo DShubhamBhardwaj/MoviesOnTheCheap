@@ -1,0 +1,58 @@
+﻿@model MOTC.Models.Movies
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+
+<h4>Edit the Details of @Model.MovieName</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MovieID" />
+            <div class="form-group">
+                <label asp-for="MovieName" class="control-label"></label>
+                <input asp-for="MovieName" class="form-control" />
+                <span asp-validation-for="MovieName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Language" class="control-label"></label>
+                <input asp-for="Language" class="form-control" />
+                <span asp-validation-for="Language" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RealeaseDate" class="control-label"></label>
+                <input asp-for="RealeaseDate" class="form-control" />
+                <span asp-validation-for="RealeaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProducerID" class="control-label"></label>
+                <select asp-for="ProducerID" class="form-control" asp-items="ViewBag.ProducerID"></select>
+                <span asp-validation-for="ProducerID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DirectorID" class="control-label"></label>
+                <select asp-for="DirectorID" class="form-control" asp-items="ViewBag.DirectorID"></select>
+                <span asp-validation-for="DirectorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary p-2 m-1" />
+                <a asp-action="Index" class="btn btn-secondary ">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

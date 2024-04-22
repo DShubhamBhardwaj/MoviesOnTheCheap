@@ -1,0 +1,24 @@
+.cardimage{
+    border-radius: 10%;
+}
+
+.cardtitle{
+    text-align: center;
+    color: black;
+    font-size: 4vh;
+}
+.cardtext{
+    font-size: 2vh;
+}
+.card_body{
+ 
+    border-radius: 5%;
+    background-color: rgba(117, 131, 122, 0.267);
+    color:black;
+    border: 1px solid rgb(7, 7, 7);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 0px -3px 10px 9px rgba(20,20,20,1);
+    -moz-box-shadow: 0px -3px 10px 9px rgba(20,20,20,1);
+    box-shadow: 0px -3px 10px 9px rgba(20,20,20,1);
+}
